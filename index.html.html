@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisaMais Lab — Competência Profissional Humana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F4EE;
+    --paper-alt:#F1ECE2;
+    --ink:#13213B;
+    --ink-deep:#0B1322;
+    --text:#2B2A26;
+    --text-soft:#5B5A53;
+    --gold:#A1813F;
+    --gold-soft:#C7AD79;
+    --line:#DCD5C4;
+    --line-deep:#2A3A58;
+    --max:1180px;
+    --gutter:32px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:'Source Serif 4', serif;
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .eyebrow--light{color:var(--gold-soft);}
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    color:var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 var(--gutter);
+  }
+
+  .hairline{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:0;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.02em;
+    padding:14px 26px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:opacity .25s ease, transform .25s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{opacity:.82;}
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+    border:1px solid var(--ink);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-on-dark{
+    background:var(--gold-soft);
+    color:var(--ink-deep);
+    border:1px solid var(--gold-soft);
+  }
+
+  /* ---------- nav ---------- */
+  header.site-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(247,244,238,0.92);
+    backdrop-filter:saturate(140%) blur(6px);
+  }
+  .nav-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px var(--gutter);
+    max-width:var(--max);
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-word{
+    font-family:'Fraunces', serif;
+    font-size:18px;
+    font-weight:500;
+    color:var(--ink);
+    letter-spacing:.01em;
+  }
+  .brand-sub{
+    font-family:'Inter',sans-serif;
+    font-size:10px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--text-soft);
+    margin-top:1px;
+  }
+  nav.links{
+    display:flex;
+    align-items:center;
+    gap:36px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:var(--text);
+  }
+  nav.links a{
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav.links a::after{
+    content:'';
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:1px;
+    background:var(--gold);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .3s ease;
+  }
+  nav.links a:hover::after{transform:scaleX(1);}
+  .nav-cta{display:flex;align-items:center;gap:18px;}
+  .nav-only-desktop{display:flex;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:74px var(--gutter) 0;
+    max-width:var(--max);
+    margin:0 auto;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero-eyebrow{margin-bottom:22px;}
+  .hero h1{
+    font-size:clamp(36px,5vw,60px);
+    line-height:1.08;
+    max-width:13.5ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+    font-weight:400;
+  }
+  .hero p.lede{
+    font-size:18px;
+    color:var(--text-soft);
+    max-width:46ch;
+    margin:26px 0 36px;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .hero-visual{
+    position:relative;
+    aspect-ratio:1/1.05;
+  }
+  .hero-foot-note{
+    margin-top:64px;
+    padding:26px 0 36px;
+    display:flex;
+    gap:40px;
+    border-top:1px solid var(--line);
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    color:var(--text-soft);
+    letter-spacing:.04em;
+  }
+
+  /* eye mark */
+  .eye-mark{stroke:var(--ink); fill:none; stroke-width:1.1;}
+  .eye-mark .pupil{fill:var(--gold);stroke:none;}
+  .eye-mark path, .eye-mark circle.lid{
+    stroke-dasharray:240;
+    stroke-dashoffset:240;
+    animation:draw 2.6s ease forwards .3s;
+  }
+  .eye-mark .pupil{
+    opacity:0;
+    animation:fadein 1.2s ease forwards 1.6s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes fadein{to{opacity:1;}}
+  @media (prefers-reduced-motion:reduce){
+    .eye-mark path,.eye-mark circle.lid,.eye-mark .pupil{animation:none;stroke-dashoffset:0;opacity:1;}
+  }
+
+  .mini-eye{width:26px;height:16px;flex:none;}
+  .mini-eye path,.mini-eye circle.lid{stroke-dasharray:none;animation:none;}
+  .mini-eye .pupil{opacity:1;animation:none;}
+
+  /* ---------- section shells ---------- */
+  section{
+    padding:118px 0;
+  }
+  section.tight{padding:90px 0;}
+  .section-head{
+    max-width:680px;
+    margin-bottom:56px;
+  }
+  .section-head h2{
+    font-size:clamp(28px,3.4vw,40px);
+    margin-top:18px;
+    line-height:1.18;
+  }
+  .section-head p{
+    color:var(--text-soft);
+    font-size:17px;
+    margin-top:18px;
+    max-width:54ch;
+  }
+  .lead-text{
+    font-size:21px;
+    line-height:1.6;
+    color:var(--ink);
+    max-width:30ch;
+  }
+  .body-col{max-width:54ch;color:var(--text-soft);}
+
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  /* ---------- quem somos / visão ---------- */
+  .split{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:64px;
+  }
+  .split.reverse{grid-template-columns:1.1fr 0.9fr;}
+
+  /* ---------- problema ---------- */
+  .problema{background:var(--ink-deep);color:#E8E4D8;}
+  .problema .eyebrow{color:var(--gold-soft);}
+  .problema h2{color:#F4F1E8;}
+  .problema .body-col{color:#B9B6A9;}
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:rgba(255,255,255,0.08);
+    margin-top:56px;
+  }
+  .stat-cell{
+    background:var(--ink-deep);
+    padding:34px 30px;
+  }
+  .stat-cell .num{
+    font-family:'Fraunces',serif;
+    font-size:40px;
+    color:var(--gold-soft);
+  }
+  .stat-cell .lbl{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:#9A978A;
+    margin-top:8px;
+    line-height:1.5;
+  }
+
+  /* ---------- protec flow ---------- */
+  .flow{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    position:relative;
+    margin-top:40px;
+  }
+  .flow-step{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    padding:20px 0;
+    position:relative;
+  }
+  .flow-line{
+    position:absolute;
+    left:21px;
+    top:0;bottom:0;
+    width:1px;
+    background:var(--line);
+    z-index:0;
+  }
+  .flow-dot{
+    width:44px;height:44px;
+    border-radius:50%;
+    border:1px solid var(--ink);
+    background:var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    color:var(--ink);
+    flex:none;
+    z-index:1;
+  }
+  .flow-step.emph .flow-dot{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+  }
+  .flow-label{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    color:var(--ink);
+  }
+  .flow-step.emph .flow-label{color:var(--gold);}
+  .flow-sub{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:var(--text-soft);
+    margin-top:2px;
+  }
+
+  /* ---------- framework pillars ---------- */
+  .pillars{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    margin-top:56px;
+  }
+  .pillar{
+    background:var(--paper);
+    padding:44px 36px;
+  }
+  .pillar .roman{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:15px;
+  }
+  .pillar h3{
+    font-size:24px;
+    margin:18px 0 14px;
+  }
+  .pillar p{
+    color:var(--text-soft);
+    font-size:15.5px;
+    margin:0;
+  }
+
+  /* ---------- competencias grid ---------- */
+  .comp-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:0;
+    margin-top:56px;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .comp-cell{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:32px 24px;
+    min-height:150px;
+  }
+  .comp-cell .num{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.08em;
+  }
+  .comp-cell h4{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:18px;
+    color:var(--ink);
+    margin:14px 0 8px;
+  }
+  .comp-cell p{
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    color:var(--text-soft);
+    line-height:1.55;
+    margin:0;
+  }
+
+  /* ---------- solucoes ---------- */
+  .sol-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:28px;
+    margin-top:56px;
+  }
+  .sol-card{
+    border:1px solid var(--line);
+    padding:30px 24px;
+    transition:border-color .25s ease;
+  }
+  .sol-card:hover{border-color:var(--gold);}
+  .sol-card h4{
+    font-family:'Fraunces',serif;
+    font-size:19px;
+    font-weight:400;
+    color:var(--ink);
+    margin:0 0 10px;
+  }
+  .sol-card p{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:var(--text-soft);
+    margin:0;
+    line-height:1.6;
+  }
+
+  /* ---------- diferenciais ---------- */
+  .difer-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:36px;
+  }
+  .tag{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:9px 18px;
+    border-radius:20px;
+  }
+
+  /* ---------- empresas / profissionais tabs ---------- */
+  .dual{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+  }
+  .dual-col .eyebrow{margin-bottom:14px;}
+  .dual-col h3{
+    font-size:26px;
+    margin-bottom:28px;
+  }
+  .step-list{list-style:none;margin:0;padding:0;}
+  .step-list li{
+    display:flex;
+    gap:18px;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .step-list li:first-child{border-top:1px solid var(--line);}
+  .step-num{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:16px;
+    flex:none;
+    width:28px;
+  }
+  .step-text strong{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .step-text span{
+    font-family:'Inter',sans-serif;
+    font-size:13.5px;
+    color:var(--text-soft);
+    line-height:1.6;
+  }
+
+  /* ---------- depoimentos ---------- */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+    margin-top:56px;
+  }
+  .testi-card{
+    border:1px solid var(--line);
+    padding:32px 28px;
+    min-height:200px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .testi-mark{
+    font-family:'Fraunces',serif;
+    font-size:40px;
+    font-style:italic;
+    color:var(--line);
+    line-height:1;
+  }
+  .testi-card p{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:var(--text-soft);
+    margin:0;
+  }
+
+  /* ---------- cta final ---------- */
+  .cta-final{
+    background:var(--ink);
+    color:var(--paper);
+    text-align:center;
+    padding:130px var(--gutter);
+  }
+  .cta-final h2{
+    color:var(--paper);
+    font-size:clamp(28px,4vw,44px);
+    max-width:18ch;
+    margin:20px auto 36px;
+    line-height:1.2;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink-deep);
+    color:#A6A395;
+    padding:64px var(--gutter) 36px;
+  }
+  .footer-grid{
+    max-width:var(--max);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:48px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  footer h5{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:#71705F;
+    margin:0 0 16px;
+  }
+  footer a{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:#C8C5B6;
+    margin-bottom:10px;
+  }
+  footer a:hover{color:var(--gold-soft);}
+  .footer-brand .brand-word{color:#F0EDE2;}
+  .footer-brand p{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:#807E70;
+    max-width:32ch;
+    margin-top:16px;
+  }
+  .footer-bottom{
+    max-width:var(--max);
+    margin:24px auto 0;
+    display:flex;
+    justify-content:space-between;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    color:#5F5E51;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{max-width:340px;margin:0 auto;order:-1;}
+    .split,.split.reverse{grid-template-columns:1fr;gap:32px;}
+    .pillars{grid-template-columns:1fr;}
+    .pillar{border-bottom:1px solid var(--line);}
+    .comp-grid{grid-template-columns:repeat(2,1fr);}
+    .sol-grid{grid-template-columns:repeat(2,1fr);}
+    .dual{grid-template-columns:1fr;gap:48px;}
+    .testi-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+    .stat-row{grid-template-columns:1fr;}
+    nav.links{display:none;}
+  }
+  @media (max-width:600px){
+    section{padding:80px 0;}
+    .comp-grid{grid-template-columns:1fr;}
+    .sol-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .hero-foot-note{flex-direction:column;gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <a class="brand" href="#topo">
+      <svg class="mini-eye eye-mark" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="lid" d="M2,14 C10,2 34,2 42,14 C34,26 10,26 2,14 Z"/>
+        <circle class="pupil" cx="22" cy="14" r="3.2"/>
+      </svg>
+      <span>
+        <span class="brand-word" style="display:block;">VisaMais Lab</span>
+        <span class="brand-sub">Powered by PROTec®</span>
+      </span>
+    </a>
+    <nav class="links nav-only-desktop">
+      <a href="#quem-somos">Quem Somos</a>
+      <a href="#framework">Framework</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#contato">Falar com a equipe</a>
+    </div>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- HERO -->
+  <section class="hero" style="padding-top:74px;">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow hero-eyebrow">Powered by PROTec®</div>
+        <h1>A competência humana que sustenta a <em>excelência técnica.</em></h1>
+        <p class="lede">Desenvolvemos profissionais técnicos, lideranças e organizações para que a excelência deixe de depender apenas da técnica — e passe a ser sustentada por pessoas conscientes.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#framework">Conhecer o PROTec®</a>
+          <a class="btn btn-ghost" href="#contato">Falar com a equipe</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg class="eye-mark" viewBox="0 0 360 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="lid" d="M30,190 C90,70 270,70 330,190 C270,310 90,310 30,190 Z" stroke-dasharray="900" stroke-dashoffset="900" style="animation:draw 3s ease forwards .3s;"/>
+          <circle class="lid" cx="180" cy="190" r="58" stroke-dasharray="380" stroke-dashoffset="380" style="animation:draw 2s ease forwards 1.4s;"/>
+          <circle class="pupil" cx="180" cy="190" r="10"/>
+          <line x1="180" y1="40" x2="180" y2="340" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 6" />
+        </svg>
+      </div>
+    </div>
+    <div class="hero-foot-note">
+      <span>Engenharia</span><span>Energia</span><span>Infraestrutura</span><span>Tecnologia</span><span>Mineração</span><span>ESG</span>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- QUEM SOMOS -->
+  <section id="quem-somos">
+    <div class="wrap split reveal">
+      <div>
+        <div class="eyebrow">Quem Somos</div>
+        <p class="lead-text" style="margin-top:18px;">Um laboratório de desenvolvimento humano para quem sustenta estruturas complexas.</p>
+      </div>
+      <div class="body-col">
+        <p>A VisaMais Lab é um laboratório de desenvolvimento humano voltado a profissionais técnicos e lideranças que sustentam estruturas complexas — engenharia, energia, infraestrutura, tecnologia e mineração.</p>
+        <p>Acreditamos que dominar a técnica é necessário, mas insuficiente. O que sustenta resultados consistentes, decisões sob pressão e equipes de alta performance é a competência humana por trás da competência técnica.</p>
+        <p style="color:var(--ink); font-style:italic; font-family:'Fraunces',serif; font-size:19px;">É isso que desenvolvemos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSSA VISÃO -->
+  <section class="tight" style="background:var(--paper-alt);">
+    <div class="wrap split reverse reveal">
+      <div class="body-col">
+        <p>Vivemos a era da hiperespecialização técnica. Engenheiros, cientistas, gestores e líderes são formados durante anos para dominar processos, sistemas e tecnologias.</p>
+        <p>Mas raramente são preparados para sustentar presença, clareza e decisão em ambientes de alta complexidade e pressão constante.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Nossa Visão</div>
+        <p class="lead-text" style="margin-top:18px;">O próximo salto de performance não virá apenas da tecnologia. Virá da maturidade humana de quem a opera.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O PROBLEMA -->
+  <section class="problema reveal">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">O Problema</div>
+        <h2>Excelência técnica não basta.</h2>
+        <p class="body-col">Organizações investem décadas formando especialistas de altíssimo nível. Ainda assim, continuam perdendo desempenho, retenção e qualidade de decisão — por uma razão simples: ninguém formou, com o mesmo rigor, a competência humana que sustenta essa técnica.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="num">Comunicação</div>
+          <div class="lbl">frágil entre áreas técnicas e lideranças</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">Decisões</div>
+          <div class="lbl">tomadas sob estresse crônico e pressão</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">Equipes</div>
+          <div class="lbl">esgotadas, com lideranças reativas</div>
+        </div>
+      </div>
+      <p style="margin-top:48px; max-width:54ch; color:#D8D4C5; font-style:italic; font-family:'Fraunces',serif; font-size:18px;">O problema raramente está na engenharia. Está na estrutura humana por trás dela.</p>
+    </div>
+  </section>
+
+  <!-- A SOLUÇÃO / PROTEC FLOW -->
+  <section id="framework" class="reveal">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">A Solução</div>
+        <h2>PROTec® — A Competência Profissional Humana.</h2>
+        <p>Framework proprietário da VisaMais Lab. Integra Ciência, Corpo e Criatividade para desenvolver a competência humana de profissionais técnicos e lideranças.</p>
+      </div>
+      <div class="flow">
+        <div class="flow-line" style="height:calc(100% - 44px);"></div>
+        <div class="flow-step">
+          <div class="flow-dot">01</div>
+          <div><div class="flow-label">Ciência</div><div class="flow-sub">Evidência aplicada ao comportamento humano</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">02</div>
+          <div><div class="flow-label">Corpo</div><div class="flow-sub">Regulação, presença física, energia sustentável</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">03</div>
+          <div><div class="flow-label">Criatividade</div><div class="flow-sub">Pensamento flexível, inovação aplicada</div></div>
+        </div>
+        <div class="flow-step emph">
+          <div class="flow-dot">→</div>
+          <div><div class="flow-label">Competência Profissional Humana</div><div class="flow-sub">A síntese que sustenta a excelência técnica</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">04</div>
+          <div><div class="flow-label">Lideranças</div><div class="flow-sub">Presença, clareza e decisão sob pressão</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">05</div>
+          <div><div class="flow-label">Equipes</div><div class="flow-sub">Comunicação, autonomia, alta performance</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">06</div>
+          <div><div class="flow-label">Organizações</div><div class="flow-sub">Estruturas mais inteligentes e sustentáveis</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O FRAMEWORK / PILARES -->
+  <section class="tight" style="background:var(--paper-alt);">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div class="eyebrow">O Framework</div>
+        <h2>Três pilares, uma só competência.</h2>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="roman">I.</div>
+          <h3>Ciência</h3>
+          <p>Neurociência aplicada, psicologia comportamental e evidência empírica como base para o desenvolvimento humano — sem espiritualização, sem promessas vazias.</p>
+        </div>
+        <div class="pillar">
+          <div class="roman">II.</div>
+          <h3>Corpo</h3>
+          <p>Regulação do sistema nervoso, presença física e energia sustentável. A base biológica que sustenta clareza e decisão sob pressão.</p>
+        </div>
+        <div class="pillar">
+          <div class="roman">III.</div>
+          <h3>Criatividade</h3>
+          <p>Pensamento flexível e resolução criativa de problemas complexos — a competência que conecta técnica e inovação real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENCIAS -->
+  <section class="reveal">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Competências Desenvolvidas</div>
+        <h2>O que se torna possível.</h2>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-cell"><div class="num">01</div><h4>Comunicação</h4><p>Clareza ao falar, ouvir e alinhar expectativas.</p></div>
+        <div class="comp-cell"><div class="num">02</div><h4>Presença</h4><p>Estar inteiro em reuniões, decisões e crises.</p></div>
+        <div class="comp-cell"><div class="num">03</div><h4>Responsabilidade</h4><p>Ownership real sobre resultados e pessoas.</p></div>
+        <div class="comp-cell"><div class="num">04</div><h4>Criatividade</h4><p>Soluções não-óbvias para problemas complexos.</p></div>
+        <div class="comp-cell"><div class="num">05</div><h4>Liderança</h4><p>Influência genuína, não apenas hierárquica.</p></div>
+        <div class="comp-cell"><div class="num">06</div><h4>Clareza</h4><p>Pensamento organizado sob pressão e ambiguidade.</p></div>
+        <div class="comp-cell"><div class="num">07</div><h4>Tomada de decisão</h4><p>Decidir bem com informação incompleta.</p></div>
+        <div class="comp-cell"><div class="num">08</div><h4>Autonomia</h4><p>Agir com critério próprio, sem microgestão.</p></div>
+        <div class="comp-cell"><div class="num">09</div><h4>Inteligência relacional</h4><p>Navegar conflitos e construir confiança.</p></div>
+        <div class="comp-cell"><div class="num">10</div><h4>Aprendizagem contínua</h4><p>Evoluir com consistência, não por impulso.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCOES -->
+  <section id="solucoes" class="tight" style="background:var(--paper-alt);">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div class="eyebrow">Soluções</div>
+        <h2>Como desenvolvemos pessoas e organizações.</h2>
+      </div>
+      <div class="sol-grid">
+        <div class="sol-card"><h4>Mentorias</h4><p>Acompanhamento individual contínuo para lideranças e profissionais técnicos.</p></div>
+        <div class="sol-card"><h4>Consultorias</h4><p>Diagnóstico e desenho de estruturas humanas para organizações complexas.</p></div>
+        <div class="sol-card"><h4>Workshops</h4><p>Imersões práticas em competências específicas, para times e áreas.</p></div>
+        <div class="sol-card"><h4>Programas</h4><p>Trilhas estruturadas de desenvolvimento de médio e longo prazo.</p></div>
+        <div class="sol-card"><h4>Diagnósticos</h4><p>Mapeamento da competência humana atual de pessoas e equipes.</p></div>
+        <div class="sol-card"><h4>Palestras</h4><p>Conteúdo institucional para eventos, convenções e lideranças.</p></div>
+        <div class="sol-card"><h4>Imersões</h4><p>Experiências intensivas que integram ciência, corpo e criatividade.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section class="reveal">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow">Diferenciais</div>
+        <h2 style="margin-top:18px; font-size:32px;">Por que somos diferentes.</h2>
+      </div>
+      <div class="body-col">
+        <p>Não vendemos cursos. Não vendemos palestras isoladas. Não vendemos treinamentos pontuais.</p>
+        <p style="color:var(--ink); font-family:'Fraunces',serif; font-style:italic; font-size:18px;">Desenvolvemos pessoas. Desenvolvemos competências.</p>
+        <p>Transformamos estruturas internas para que profissionais e organizações sustentem resultados de forma consciente — integrando disciplinas que raramente se encontram:</p>
+        <div class="difer-tags">
+          <span class="tag">Engenharia</span>
+          <span class="tag">Ciência</span>
+          <span class="tag">Corpo</span>
+          <span class="tag">Criatividade</span>
+          <span class="tag">Pesquisa</span>
+          <span class="tag">Método</span>
+          <span class="tag">Experiência</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA EMPRESAS / PROFISSIONAIS -->
+  <section class="tight" style="background:var(--paper-alt);">
+    <div class="wrap dual reveal">
+      <div class="dual-col">
+        <div class="eyebrow">Para Empresas</div>
+        <h3>Como trabalhamos com organizações.</h3>
+        <ul class="step-list">
+          <li><span class="step-num">01</span><div class="step-text"><strong>Diagnóstico</strong><span>Mapeamento da competência humana da liderança e das equipes.</span></div></li>
+          <li><span class="step-num">02</span><div class="step-text"><strong>Desenho do programa</strong><span>Estrutura de desenvolvimento sob medida para o contexto da organização.</span></div></li>
+          <li><span class="step-num">03</span><div class="step-text"><strong>Implementação</strong><span>Mentorias, workshops e programas conduzidos com rigor de método.</span></div></li>
+          <li><span class="step-num">04</span><div class="step-text"><strong>Mensuração de resultados</strong><span>Acompanhamento contínuo da evolução e dos indicadores definidos.</span></div></li>
+        </ul>
+      </div>
+      <div class="dual-col">
+        <div class="eyebrow">Para Profissionais</div>
+        <h3>Como acontece o desenvolvimento individual.</h3>
+        <ul class="step-list">
+          <li><span class="step-num">01</span><div class="step-text"><strong>Diagnóstico individual</strong><span>Leitura honesta do momento técnico e humano do profissional.</span></div></li>
+          <li><span class="step-num">02</span><div class="step-text"><strong>Plano de desenvolvimento</strong><span>Direcionamento claro sobre o que desenvolver e em que ordem.</span></div></li>
+          <li><span class="step-num">03</span><div class="step-text"><strong>Mentoria contínua</strong><span>Acompanhamento próximo, com ciência, corpo e criatividade.</span></div></li>
+          <li><span class="step-num">04</span><div class="step-text"><strong>Sustentação de resultados</strong><span>Consolidação da competência para que ela permaneça no tempo.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="reveal">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Depoimentos</div>
+        <h2>Histórias em construção.</h2>
+        <p>Em breve, relatos de profissionais e organizações que desenvolveram sua Competência Profissional Humana com a VisaMais Lab.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card"><div class="testi-mark">"</div><p>Espaço reservado para depoimentos de clientes e parceiros.</p></div>
+        <div class="testi-card"><div class="testi-mark">"</div><p>Espaço reservado para depoimentos de clientes e parceiros.</p></div>
+        <div class="testi-card"><div class="testi-mark">"</div><p>Espaço reservado para depoimentos de clientes e parceiros.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final reveal" id="contato">
+    <div class="eyebrow eyebrow--light">Powered by PROTec®</div>
+    <h2>Pronto para desenvolver a competência humana que sustenta sua excelência técnica?</h2>
+    <a class="btn btn-on-dark" href="mailto:contato@visamaislab.com">Falar com a equipe VisaMais Lab</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="brand-word" style="font-size:20px;">VisaMais Lab</span>
+      <p>Desenvolvimento humano para profissionais técnicos e lideranças. Powered by PROTec®.</p>
+    </div>
+    <div>
+      <h5>Empresa</h5>
+      <a href="#quem-somos">Quem Somos</a>
+      <a href="#framework">Framework</a>
+      <a href="#solucoes">Soluções</a>
+    </div>
+    <div>
+      <h5>Contato</h5>
+      <a href="mailto:contato@visamaislab.com">contato@visamaislab.com</a>
+    </div>
+    <div>
+      <h5>Redes</h5>
+      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 VisaMais Lab. Todos os direitos reservados.</span>
+    <span>PROTec® é uma marca registrada da VisaMais Lab.</span>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('is-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
