@@ -638,10 +638,10 @@ legend{padding:0}
 <section class="panel" data-step="6">
   <div class="wrap split">
     <div class="stagger">
-      <div class="eyebrow">05 · Vetor atual</div>
+      <div class="eyebrow">05 · Radar PROTec®</div>
       <h2>Onde está a sua força <em>hoje?</em></h2>
-      <p class="lede" style="margin-top:22px">Esta é a primeira leitura do Human ID®: sem julgamento e sem resposta certa. É o retrato do ponto de partida — na Semana 09 vamos olhar para ele de novo.</p>
-      <p class="hint" style="margin-top:16px">0 = ainda adormecido &nbsp;·&nbsp; 10 = plenamente disponível</p>
+      <p class="lede" style="margin-top:22px">Seis eixos, uma leitura. Sem julgamento e sem resposta certa: é o retrato do seu ponto de partida — na Semana 09 vamos olhar para ele de novo.</p>
+      <p class="hint" style="margin-top:16px"><strong style="color:var(--text)">1</strong> = pede cuidado agora &nbsp;·&nbsp; <strong style="color:var(--text)">5</strong> = plenamente disponível</p>
       <div class="actions"><button class="btn btn-primary" data-go="7">Continuar <i>→</i></button><button class="back" data-go="5">← voltar</button></div>
     </div>
     <div class="form-card" id="vetorBox" style="gap:0"></div>
@@ -806,13 +806,18 @@ const WEEKS = [
 const AULA0 = {n:'0', t:'Aula 0 · Embarque e reconhecimento', q:'Aquecimento, reconhecimento da turma e primeiro acordo de presença.', d:'2026-08-10'};
 const EVENTS = [AULA0, ...WEEKS];
 
+// Radar PROTec® — os seis eixos oficiais, escala 1 a 5.
+// Mesma taxonomia usada no Diagnóstico de Origem®, para que as leituras
+// sejam comparáveis entre si.
 const VETOR = [
-  {k:'Clareza',    s:'Sei nomear o que quero e por quê.'},
-  {k:'Coragem',    s:'Consigo agir mesmo sem garantia.'},
-  {k:'Constância', s:'Sustento o movimento depois do impulso inicial.'},
-  {k:'Conexão',    s:'Peço, ofereço e recebo apoio com verdade.'},
-  {k:'Autoria',    s:'Assumo publicamente o que é meu.'}
+  {k:'Corpo',     s:'Energia, descanso e regulação física.'},
+  {k:'Cérebro',   s:'Foco, organização do pensamento e decisão.'},
+  {k:'Coração',   s:'Conexão, relações e abertura emocional.'},
+  {k:'Clareza',   s:'Saber o que quero e por quê.'},
+  {k:'Estrutura', s:'Método, rotina e constância.'},
+  {k:'Presença',  s:'Estar inteiro no que estou fazendo.'}
 ];
+const ESCALA = {min:1, max:5, inicial:3};
 
 const RITMOS = [
   'Conversando e elaborando em voz alta',
@@ -841,7 +846,7 @@ const PACTOS = [
   {t:'Abra a primeira página',               s:'Escreva à mão: “Eu assumo meu poder pessoal.”'}
 ];
 
-const NAV = ['Portal','Presença','Identificação','Travessia','Expectativas','Vetor atual','Seu ritmo','Caderno','Aula Zero','Compromisso'];
+const NAV = ['Portal','Presença','Identificação','Travessia','Expectativas','Radar','Seu ritmo','Caderno','Aula Zero','Compromisso'];
 
 /* ══════════ estrelas ══════════ */
 (function(){
@@ -1123,16 +1128,18 @@ document.addEventListener('click', e=>{
 /* ══════════ vetor atual ══════════ */
 document.getElementById('vetorBox').innerHTML = VETOR.map((v,i)=>`
   <div class="slider-row">
-    <div class="slider-head"><span class="name" id="vk${i}">${v.k}</span><span class="val" id="vv${i}">5</span></div>
+    <div class="slider-head"><span class="name" id="vk${i}">${v.k}</span>
+      <span class="val" id="vv${i}">${ESCALA.inicial}<span style="font-size:13px;color:var(--text-faint)">/${ESCALA.max}</span></span></div>
     <div class="sub" id="vs${i}">${v.s}</div>
-    <input type="range" min="0" max="10" step="1" value="5" data-vetor="${v.k}"
+    <input type="range" min="${ESCALA.min}" max="${ESCALA.max}" step="1" value="${ESCALA.inicial}" data-vetor="${v.k}"
       aria-label="${v.k} — ${v.s}" aria-describedby="vs${i}"
-      aria-valuetext="5 de 10">
+      aria-valuetext="${ESCALA.inicial} de ${ESCALA.max}">
   </div>`).join('');
 document.querySelectorAll('[data-vetor]').forEach((s,i)=>{
   s.addEventListener('input', ()=>{
-    document.getElementById('vv'+i).textContent = s.value;
-    s.setAttribute('aria-valuetext', `${s.value} de 10`);
+    document.getElementById('vv'+i).innerHTML =
+      `${s.value}<span style="font-size:13px;color:var(--text-faint)">/${ESCALA.max}</span>`;
+    s.setAttribute('aria-valuetext', `${s.value} de ${ESCALA.max}`);
   });
 });
 
